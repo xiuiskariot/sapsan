@@ -1,36 +1,26 @@
-import React, { useState, useEffect, Component } from "react";
-import "./App.css";
-import { useSearchImages } from "./components/api";
+import React, { useState } from "react";
+import { useSearchImages } from "./hook/useSearchImages";
 
-import { SearchItem } from "./SearchItem";
-
-import { SearchGroup } from "./SearchGroup";
-import { Spinner } from "./Spinner";
+import { SearchItem } from "./components/SearchItem";
+import { SearchGroup } from "./components/SearchGroup";
+import { Spinner } from "./components/Spinner";
 
 function App() {
   const [searchQ, setSearchQ] = useState({});
 
-  
- 
-
- 
   const { query: searchData, isLoading } = useSearchImages(searchQ);
-  console.log(searchData);
- 
+
   return (
     <main>
       <SearchGroup setSearchQ={setSearchQ} searchQ={searchQ} />
 
-      {!!Object.entries(searchQ).length && !searchData.length && (
-        <p className="not-found">
-          К сожалению, поиск не дал результатов
-        </p>
+      {!!Object.entries(searchQ).length && !searchData.length && !isLoading && (
+        <p className="not-found">К сожалению, поиск не дал результатов</p>
       )}
       <div className="contain">
         {searchQ &&
           searchData.map((img, i) => (
             <SearchItem src={img.urls.regular} key={i} />
-            
           ))}
       </div>
       {isLoading && <Spinner />}

@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import { DeleteIcon } from "./SearchGroup";
 import { Modal } from "./Modal";
 
-
-
-
 export const SearchItem = (src) => {
-
   const [isModalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -29,9 +24,7 @@ export const SearchItem = (src) => {
         }}
         onClick={openModal}
       ></div>
-      {isModalOpen && (
-       <Modal src={src} closeModal={closeModal}/>
-      )}
+      {isModalOpen && <Modal src={src} closeModal={closeModal} />}
     </div>
   );
 };
