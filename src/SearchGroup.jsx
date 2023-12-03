@@ -38,26 +38,27 @@ export const SearchGroup = ({ setSearchQ, setQuery }) => {
     //setQuery(e.target.value);
   };
 
-   const search = () => {
-     setSearchQ(inputValue);
+  const search = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    // output as an object
+    console.log(Object.fromEntries(formData));
+    setSearchQ(Object.fromEntries(formData));
+    console.log({ e });
+    
    };
 
   return (
-    <div style={{ display: "flex", width: "100%", marginBottom: '16px' }}>
+    <form style={{ display: "flex", width: "100%", marginBottom: "32px" }} onSubmit={search} >
       <div
-        style={{
-          display: "flex",
-          background: "#EEEEEE",
-          padding: "12px 8px",
-          borderRadius: "12px",
-          marginRight: "8px",
-          width: "33%",
-        }}
+        className="search-container"
+        
       >
         <div style={{ padding: "2px", marginRight: "4px" }}>{SearchIcon}</div>
         <input
           type="text"
-          value={inputValue}
+          name="query"
+          // value={inputValue}
           onChange={handleInputChange}
           style={{
             border: "none",
@@ -72,6 +73,7 @@ export const SearchGroup = ({ setSearchQ, setQuery }) => {
           }}
         />
         <button
+          value={"Reset"}
           style={{
             padding: "2px",
             marginLeft: "4px",
@@ -79,8 +81,9 @@ export const SearchGroup = ({ setSearchQ, setQuery }) => {
             outline: "none",
             border: "none",
           }}
+          type="reset"
           onClick={() => {
-            setSearchQ("");
+            setSearchQ({});
             setInputValue("");
           }}
         >
@@ -99,7 +102,7 @@ export const SearchGroup = ({ setSearchQ, setQuery }) => {
           fontFamily: "SF Pro Display",
           lineHeight: "19px",
         }}
-        onClick={search}
+        type="submit"
         onMouseOver={(e) => (e.target.style.background = "#C30000")}
         onMouseOut={(e) =>
           inputValue && (e.target.style.background = "#EB0C0C")
@@ -107,6 +110,6 @@ export const SearchGroup = ({ setSearchQ, setQuery }) => {
       >
         Искать
       </button>
-    </div>
+    </form>
   );
 };

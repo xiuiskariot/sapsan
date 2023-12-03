@@ -17,6 +17,8 @@ const CloseIcon = (
   </svg>
 );
 
+
+
 export const SearchItem = (props) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -53,8 +55,29 @@ export const SearchItem = (props) => {
             alignItems: "center",
             justifyContent: "center",
             zIndex: "99",
+            "@media (max-width: 950px)": {
+              background: "red", // Пример изменения цвета фона для ширин менее 950 пикселей
+            },
           }}
+          onClick={closeModal}
         >
+          <button
+            onClick={closeModal}
+            style={{
+              aspectRatio: "1/1",
+              outline: "none",
+              border: "none",
+              borderRadius: "50%",
+              background: "#FFF",
+              // width: "50px",
+              zIndex: "100",
+              position: "absolute",
+              top: "33px",
+              right: "33px",
+            }}
+          >
+            {CloseIcon}
+          </button>
           <div
             style={{
               //background: `url(${props.src}) no-repeat center / cover`,
@@ -69,22 +92,6 @@ export const SearchItem = (props) => {
               style={{ width: "100%", maxHeight: "90vh" }}
             />
           </div>
-          <button
-            onClick={closeModal}
-            style={{
-              aspectRatio: "1/1",
-              outline: "none",
-              border: "none",
-              borderRadius: "50%",
-              background: "#FFF",
-              // width: "50px",
-              zIndex: "100",
-              alignSelf: "flex-start",
-              justifySelf: "start",
-            }}
-          >
-            {CloseIcon}
-          </button>
         </div>
       )}
     </div>

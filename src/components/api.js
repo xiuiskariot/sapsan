@@ -2,24 +2,45 @@ import React, { useState, useEffect, Component } from "react";
 import axios from "axios";
 const API_KEY = "Ip0XA55zY7b7-d19osq1L5btGg-YCeDZVpnnJjXqHxs";
 
+const apiAxios = axios.create({ baseURL: "https://api.unsplash.com" });
+
 export function useSearchImages(params) {
   const [query, setQuery] = useState([]);
-  const [page, setPage] = useState();
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false)
+
+  console.log({params, page, query});
+
+  const fetchData = async () => {
+    if (!Object.entries(params).length) return;
+    setIsLoading(true)
+    try {
+      const response = await apiAxios.get("/search/photos", {
+        params: {
+          ...params,
+          client_id: API_KEY,
+          page,
+          per_page: 30,
+        },
+      });
+
+      setQuery((prev) => [...prev, ...response.data.results]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false)
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.unsplash.com/search/photos?client_id=${API_KEY}&query=${params}&page=${page}&per_page=30`
-        );
-        setQuery((prevQuery) => [...prevQuery, ...response.data.results]);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     fetchData();
-  }, [params, page]);
+  }, [page]);
+
+  useEffect(() => {
+    setPage(1)
+    setQuery([]);
+    fetchData();
+  }, [params]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,15 +59,7 @@ export function useSearchImages(params) {
     };
   }, []);
 
-  console.log({query});
-
-  return query;
-
-
-  
+  return {query, isLoading};
 }
 
-
-
-
-
+export default useSearchImages;

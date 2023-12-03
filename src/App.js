@@ -1,35 +1,35 @@
 import React, { useState, useEffect, Component } from "react";
 import "./App.css";
 import { useSearchImages } from "./components/api";
-import Image from "./components/image";
+
 import { SearchItem } from "./SearchItem";
 
 import { SearchGroup } from "./SearchGroup";
 
 function App() {
-  const [searchQ, setSearchQ] = useState();
+  const [searchQ, setSearchQ] = useState({});
  
 
  
-  const searchData = useSearchImages(searchQ);
-  console.log({searchData})
+  const { query: searchData, isLoading } = useSearchImages(searchQ);
 
   return (
-    <div style={{ padding: "80px" }}>
-      <SearchGroup
-        setSearchQ={setSearchQ}
-      
-      
-      />
+    <main>
+      <SearchGroup setSearchQ={setSearchQ} />
 
-      {searchData && searchQ && searchData.length == 0 && (
-        <p className="text-center col-12">No result found</p>
+      {!!Object.entries(searchQ).length && !searchData.length && (
+        <p className="text-center col-12">
+          К сожалению, поиск не дал результатов
+        </p>
       )}
       <div className="contain">
         {searchQ &&
-          searchData.map((img) => <SearchItem src={img.urls.regular} key={img.id} />)}
+          searchData.map((img) => (
+            <SearchItem src={img.urls.regular} key={img.id} />
+          ))}
       </div>
-    </div>
+      {isLoading && <p>Еще грузится</p>}
+    </main>
   );
 }
 
