@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 import axios from "axios";
-const API_KEY = "Ip0XA55zY7b7-d19osq1L5btGg-YCeDZVpnnJjXqHxs";
+const API_KEY = "yx19L-TfZ12LJzks8RFnAO8r4fnS3AMsXgWIjPSYGog";
 
 const apiAxios = axios.create({ baseURL: "https://api.unsplash.com" });
 
@@ -28,7 +28,7 @@ export function useSearchImages(params) {
     } catch (error) {
       console.error(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(true)
     }
   };
 

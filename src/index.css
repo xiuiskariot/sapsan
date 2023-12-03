@@ -3,14 +3,3 @@
   src: url('./fonts/SFProDisplay-Regular.woff');
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, 'SF Pro Display'
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.search-btn:hover {
-  color: 'black'
-}

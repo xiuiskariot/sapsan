@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useSearchImages from "./components/api";
 
 const SearchIcon = (
   <svg
@@ -30,36 +31,41 @@ export const DeleteIcon = (
   </svg>
 );
 
-export const SearchGroup = ({ setSearchQ, setQuery }) => {
+export const SearchGroup = ({ setSearchQ, searchQ}) => {
   const [inputValue, setInputValue] = useState("");
+
+
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-    //setQuery(e.target.value);
   };
 
   const search = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    // output as an object
-    console.log(Object.fromEntries(formData));
     setSearchQ(Object.fromEntries(formData));
-    console.log({ e });
-    
    };
 
   return (
-    <form style={{ display: "flex", width: "100%", marginBottom: "32px" }} onSubmit={search} >
-      <div
-        className="search-container"
-        
-      >
+    <form
+      style={{
+        display: "flex",
+        width: "100%",
+        marginBottom: "32px",
+        marginTop: Object.entries(searchQ).length ? "0" : "30vh",
+        justifyContent: Object.entries(searchQ).length ? "normal" : "center",
+        transition: "margin 0.3s ease-in-out",
+      }}
+      onSubmit={search}
+    >
+      <div className="search-container">
         <div style={{ padding: "2px", marginRight: "4px" }}>{SearchIcon}</div>
         <input
           type="text"
           name="query"
           // value={inputValue}
           onChange={handleInputChange}
+          placeholder="Телефоны, яблоки, груши..."
           style={{
             border: "none",
             outline: "none",
