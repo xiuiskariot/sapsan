@@ -15,7 +15,7 @@ const SearchIcon = (
   </svg>
 );
 
-const DeleteIcon = (
+export const DeleteIcon = (
   <svg
     width="17"
     height="17"
@@ -30,16 +30,20 @@ const DeleteIcon = (
   </svg>
 );
 
-export const SearchGroup = ({ setSearchQ, setQuery, search }) => {
+export const SearchGroup = ({ setSearchQ, setQuery }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-    setQuery(e.target.value);
+    //setQuery(e.target.value);
   };
 
+   const search = () => {
+     setSearchQ(inputValue);
+   };
+
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", width: "100%", marginBottom: '16px' }}>
       <div
         style={{
           display: "flex",
@@ -47,6 +51,7 @@ export const SearchGroup = ({ setSearchQ, setQuery, search }) => {
           padding: "12px 8px",
           borderRadius: "12px",
           marginRight: "8px",
+          width: "33%",
         }}
       >
         <div style={{ padding: "2px", marginRight: "4px" }}>{SearchIcon}</div>
@@ -63,6 +68,7 @@ export const SearchGroup = ({ setSearchQ, setQuery, search }) => {
             fontStyle: "normal",
             fontWeight: 400,
             lineHeight: "normal",
+            width: "100%",
           }}
         />
         <button

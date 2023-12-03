@@ -1,7 +1,14 @@
-.contain {
+/* .contain {
   margin: 2px auto;
   columns: 3;
   column-gap: 3px;
+} */
+
+.contain {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
+  gap: 8px;
+
 }
 .contain img {
   width: 100%;
